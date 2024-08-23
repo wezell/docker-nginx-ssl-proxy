@@ -12,8 +12,6 @@ An optional `EXTRANAMES` variable can be provided with a list of additional doma
 
 Certificates from Let's Encrypt are issued with a 90 day expiration. This image will automatically renew the certificate when it is 60 days old.
 
-Prior versions of this image used simp_le. It has been changed to use certbot due to reliability issues with simp_le.
-
 ## WARNING - HSTS Strict-Transport-Security Header
 
 This image's default configuration includes a `Strict-Transport-Security` header with expiry set to 1 year. Visitors' browsers will cache this header and will refuse to connect except over SSL. Eventually, you may wish to have your domain included in browser [HSTS Preload](https://hstspreload.appspot.com/) lists.
@@ -103,13 +101,15 @@ Reasonable defaults have been chosen with an eye towards a configuration which i
    * [envplate](https://github.com/kreuzwerker/envplate) - for allowing use of environment variables in Nginx configuration
    * [s6-overlay](https://github.com/just-containers/s6-overlay) - for PID 1, process supervision, zombie reaping
 
-# Issues, Contributing
+# Building
+Building this image for multiple architectures can be done as so:
+```
+docker buildx build --progress=plain --platform linux/amd64,linux/arm64 --pull --load  -t wezell/nginx-letsencrypt-proxy:latest .
+```
 
-If you run into any problems with this image, please check for issues on [GitHub](https://github.com/DanielDent/docker-nginx-ssl-proxy/issues).
-Please file a pull request or create a new issue for problems or potential improvements.
 
 # License
-
+This is based off the work of Daniel Dent.  
 Copyright 2015-2018 [Daniel Dent](https://www.danieldent.com/).
 
 Licensed under the Apache License, Version 2.0 (the "License");
